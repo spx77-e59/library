@@ -103,7 +103,7 @@ function showBooks() {
         selectedBook.read = true;
       }
     });
-
+    deleteBookButton.style.backgroundColor = "rgb(184, 30, 30)";
     deleteBookButton.innerText = "Delete Book";
     deleteBookButton.addEventListener("click", () => {
       const updatedBookList = myLibrary.filter(
@@ -160,7 +160,8 @@ addNewBookButton.addEventListener("click", () => {
     cancelButton.remove();
     addBookForm.reset();
   });
-  cancelButton.innerText = "Cancel";
+  cancelButton.innerText = "X";
+  cancelButton.id = "cancel-btn";
   addBookForm.insertAdjacentElement("beforebegin", cancelButton);
   addBookForm.style.display = "";
 });
