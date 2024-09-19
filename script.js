@@ -51,6 +51,7 @@ const read = document.querySelector("#read");
 const addBookToLibraryButton = document.querySelector("#addBooktoLibrary");
 const booklist = document.querySelector(".book-list");
 const showBooksButton = document.querySelector("#show-books");
+const addNewBookButton = document.querySelector("#addNewBook");
 
 
 function addBookToLibrary() {
@@ -86,3 +87,8 @@ addBookToLibraryButton.addEventListener("click", (e) =>{
 });
 
 showBooksButton.addEventListener("click", showBooks);
+
+addNewBookButton.addEventListener("click", () => {
+  const form = document.querySelector(".addBookForm");
+  form.style.display = "";
+})
