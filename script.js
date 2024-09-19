@@ -1,4 +1,36 @@
-const myLibrary = [];
+let myLibrary = [
+  {
+    title: "The Catcher in the Rye",
+    author: "J.D. Salinger",
+    pages: 214,
+    read: true
+  },
+  {
+    title: "1984",
+    author: "George Orwell",
+    pages: 328,
+    read: false
+  },
+  {
+    title: "To Kill a Mockingbird",
+    author: "Harper Lee",
+    pages: 281,
+    read: true
+  },
+  {
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    pages: 180,
+    read: false
+  },
+  {
+    title: "Moby Dick",
+    author: "Herman Melville",
+    pages: 635,
+    read: true
+  }
+];
+
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -17,14 +49,40 @@ const author = document.querySelector("#author");
 const pages = document.querySelector("#pages");
 const read = document.querySelector("#read");
 const addBookToLibraryButton = document.querySelector("#addBooktoLibrary");
+const booklist = document.querySelector(".book-list");
+const showBooksButton = document.querySelector("#show-books");
 
 
 function addBookToLibrary() {
   myLibrary.push(new Book(title.value, author.value, pages.value, read.checked?"true":"false"));
 }
 
+function showBooks() {
+  myLibrary.forEach(item => {
+    const book = document.createElement("li");
+    const title = document.createElement("p");
+    const author = document.createElement("p");
+    const pages = document.createElement("p");
+    const read = document.createElement("p");
+  
+    title.textContent = item.title;
+    author.textContent = item.author;
+    pages.textContent = item.pages;
+    read.textContent = item.read = true? "read": "not read yet";
+  
+    book.appendChild(title);
+    book.appendChild(author);
+    book.appendChild(pages);
+    book.appendChild(read);
+  
+    booklist.appendChild(book);
+  })
+}
+
 addBookToLibraryButton.addEventListener("click", (e) =>{
   e.preventDefault();
   addBookToLibrary();
   console.table(myLibrary);
-})
+});
+
+showBooksButton.addEventListener("click", showBooks);
