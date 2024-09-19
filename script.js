@@ -49,7 +49,7 @@ const pages = document.querySelector("#pages");
 const read = document.querySelector("#read");
 const addBookToLibraryButton = document.querySelector("#addBooktoLibrary");
 const booklist = document.querySelector(".book-list");
-const showBooksButton = document.querySelector("#show-books");
+const toggleBooksButton = document.querySelector("#toggle-books");
 const addNewBookButton = document.querySelector("#addNewBook");
 const addBookForm = document.querySelector(".addBookForm");
 
@@ -119,6 +119,7 @@ function showBooks() {
     book.appendChild(deleteBook);
 
     booklist.appendChild(book);
+    booklist.style.display = "";
   });
 }
 
@@ -129,7 +130,16 @@ addBookToLibraryButton.addEventListener("click", (e) => {
   addBookForm.style.display = "none";
 });
 
-showBooksButton.addEventListener("click", showBooks);
+toggleBooksButton.addEventListener("click", () => {
+  
+  if(toggleBooksButton.innerText === "Show Books") {
+    showBooks();
+    toggleBooksButton.innerText = "Hide Books";
+  } else {
+    toggleBooksButton.innerText = "Show Books"
+    booklist.style.display = "none";
+  }
+});
 
 addNewBookButton.addEventListener("click", () => {
   addBookForm.style.display = "";
