@@ -72,16 +72,39 @@ function showBooks() {
     const pages = document.createElement("p");
     const read = document.createElement("p");
     const deleteBook = document.createElement("button");
+    const toggleReadButton = document.createElement("button");
 
     title.textContent = item.title;
     author.textContent = item.author;
     pages.textContent = item.pages;
     read.textContent = item.read ? "read" : "not read yet";
 
+    toggleReadButton.innerText =
+      read.textContent === "read" ? "mark unread" : "mark read";
+    toggleReadButton.addEventListener("click", () => {
+      const x = myLibrary.find(
+        (item) =>
+          item.title === title.textContent && item.author === author.textContent
+      );
+
+      console.table(x);
+      if (read.textContent === "read") {
+        read.textContent = "not read yet";
+        toggleReadButton.innerText = "mark read";
+        x.read = false;
+      } else {
+        read.textContent = "read";
+        toggleReadButton.innerText = "mark unread";
+        x.read = true;
+      }
+      console.table(x);
+    });
+
     deleteBook.innerText = "Delete Book";
     deleteBook.addEventListener("click", () => {
       const updatedBookList = myLibrary.filter(
-        (item) => item.title !== title.textContent && item.author !== author.textContent
+        (item) =>
+          item.title !== title.textContent && item.author !== author.textContent
       );
       console.log(updatedBookList);
       myLibrary = updatedBookList;
@@ -92,6 +115,7 @@ function showBooks() {
     book.appendChild(author);
     book.appendChild(pages);
     book.appendChild(read);
+    book.appendChild(toggleReadButton);
     book.appendChild(deleteBook);
 
     booklist.appendChild(book);
