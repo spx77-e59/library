@@ -1,35 +1,4 @@
-let myLibrary = [
-  {
-    title: "The Catcher in the Rye",
-    author: "J.D. Salinger",
-    pages: 214,
-    read: true,
-  },
-  {
-    title: "1984",
-    author: "George Orwell",
-    pages: 328,
-    read: false,
-  },
-  {
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    pages: 281,
-    read: true,
-  },
-  {
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    pages: 180,
-    read: false,
-  },
-  {
-    title: "Moby Dick",
-    author: "Herman Melville",
-    pages: 635,
-    read: true,
-  },
-];
+let myLibrary = [];
 
 const titleInput = document.querySelector("#title");
 const authorInput = document.querySelector("#author");
