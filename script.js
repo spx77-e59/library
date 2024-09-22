@@ -1,35 +1,4 @@
-let myLibrary = [
-  {
-    title: "The Catcher in the Rye",
-    author: "J.D. Salinger",
-    pages: 214,
-    read: true,
-  },
-  {
-    title: "1984",
-    author: "George Orwell",
-    pages: 328,
-    read: false,
-  },
-  {
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    pages: 281,
-    read: true,
-  },
-  {
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    pages: 180,
-    read: false,
-  },
-  {
-    title: "Moby Dick",
-    author: "Herman Melville",
-    pages: 635,
-    read: true,
-  },
-];
+let myLibrary = [];
 
 const titleInput = document.querySelector("#title");
 const authorInput = document.querySelector("#author");
@@ -41,12 +10,14 @@ const addNewBookButton = document.querySelector("#addNewBook");
 const addBookForm = document.querySelector(".addBookForm");
 const cancelButton = document.createElement("button");
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  info = function () {
     return read
       ? `${title} by ${author}, ${pages} pages, read`
       : `${title} by ${author}, ${pages} pages, not read yet`;
@@ -67,6 +38,7 @@ function addBookToLibrary() {
 function showBooks() {
   if (myLibrary.length === 0) {
     const messageElement = document.createElement("p");
+    messageElement.classList = "no-books";
     messageElement.textContent = "No books added. Add some books...";
     booklistElement.appendChild(messageElement);
     booklistElement.style.display = "";
@@ -103,16 +75,21 @@ function showBooks() {
         selectedBook.read = true;
       }
     });
+
     deleteBookButton.style.backgroundColor = "rgb(184, 30, 30)";
     deleteBookButton.innerText = "Delete Book";
     deleteBookButton.addEventListener("click", () => {
-      const updatedBookList = myLibrary.filter(
+      console.table(myLibrary);
+      const selectedBookIndex = myLibrary.findIndex(
         (item) =>
-          item.title !== title.textContent && item.author !== author.textContent
+          item.title === titleElement.textContent &&
+          item.author === authorElement.textContent
       );
-      console.log(updatedBookList);
-      myLibrary = updatedBookList;
+      if (selectedBookIndex !== -1) {
+        myLibrary.splice(selectedBookIndex, 1);
+      }
       bookElement.remove();
+      console.table(myLibrary);
     });
 
     bookElement.appendChild(titleElement);

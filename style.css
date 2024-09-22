@@ -93,3 +93,7 @@ ul li {
   gap: 5px;
   background-color: rgb(201, 216, 215);
 }
+
+.no-books {
+  padding: 15px;
+}
