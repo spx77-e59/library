@@ -79,7 +79,6 @@ function showBooks() {
     deleteBookButton.style.backgroundColor = "rgb(184, 30, 30)";
     deleteBookButton.innerText = "Delete Book";
     deleteBookButton.addEventListener("click", () => {
-      console.table(myLibrary);
       const selectedBookIndex = myLibrary.findIndex(
         (item) =>
           item.title === titleElement.textContent &&
@@ -89,7 +88,6 @@ function showBooks() {
         myLibrary.splice(selectedBookIndex, 1);
       }
       bookElement.remove();
-      console.table(myLibrary);
     });
 
     bookElement.appendChild(titleElement);
