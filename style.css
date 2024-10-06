@@ -97,3 +97,15 @@ ul li {
 .no-books {
   padding: 15px;
 }
+
+.error {
+  width: 100%;
+  padding: 0;
+  border-radius: 5px;
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+
+  box-sizing: border-box;
+}

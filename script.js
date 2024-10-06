@@ -10,6 +10,10 @@ const addNewBookButton = document.querySelector("#addNewBook");
 const addBookForm = document.querySelector(".addBookForm");
 const cancelButton = document.createElement("button");
 
+const titleErrorSpan = document.querySelector("#title + span.error");
+const authorErrorSpan = document.querySelector("#author + span.error");
+const pagesErrorSpan = document.querySelector("#pages + span.error");
+
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
@@ -102,20 +106,6 @@ function showBooks() {
   });
 }
 
-addBookForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  addBookToLibrary();
-  addBookForm.style.display = "none";
-  cancelButton.remove();
-  addBookForm.reset();
-
-  while (booklistElement.firstChild) {
-    booklistElement.removeChild(booklistElement.firstChild);
-  }
-  showBooks();
-  toggleBooksButton.innerText = "Hide Books";
-});
-
 toggleBooksButton.addEventListener("click", () => {
   if (toggleBooksButton.innerText === "Show Books") {
     showBooks();
@@ -139,4 +129,93 @@ addNewBookButton.addEventListener("click", () => {
   cancelButton.id = "cancel-btn";
   addBookForm.insertAdjacentElement("beforebegin", cancelButton);
   addBookForm.style.display = "";
+});
+
+//form input validation
+
+function showTitleError() {
+  if (titleInput.validity.valueMissing) {
+    titleErrorSpan.textContent = "You need to enter a title";
+  }
+  if (titleInput.validity.tooLong) {
+    titleErrorSpan.textContent = `Title should not exceed ${titleInput.maxLength} characters. You entered ${titleInput.value.length}.`;
+  }
+}
+
+function showAuthorError() {
+  if (authorInput.validity.valueMissing) {
+    authorErrorSpan.textContent = "You need to enter an author";
+  }
+  if (authorInput.validity.tooLong) {
+    authorErrorSpan.textContent = `Author name should not exceed ${authorInput.maxLength} characters. You entered ${authorInput.value.length}.`;
+  }
+  if (authorInput.validity.patternMismatch) {
+    authorErrorSpan.textContent = "Invalid author name";
+  }
+}
+
+function showPagesError() {
+  if (pagesInput.validity.valueMissing) {
+    pagesErrorSpan.textContent = "You need to enter a page number";
+  }
+  if (pagesInput.validity.rangeUnderflow) {
+    pagesErrorSpan.textContent = `Minimum number of pages should be ${pagesInput.min}. You entered ${pagesInput.value}.`;
+  }
+  if (pagesInput.validity.rangeOverflow) {
+    pagesErrorSpan.textContent = `Maximum number of pages should be ${pagesInput.max}. You entered ${pagesInput.value}.`;
+  }
+}
+
+titleInput.addEventListener("input", () => {
+  if (titleInput.validity.valid) {
+    titleErrorSpan.textContent = "";
+  } else {
+    showTitleError();
+  }
+});
+
+authorInput.addEventListener("input", () => {
+  if (authorInput.validity.valid) {
+    authorErrorSpan.textContent = "";
+  } else {
+    showAuthorError();
+  }
+});
+
+pagesInput.addEventListener("input", () => {
+  if (pagesInput.validity.valid) {
+    pagesErrorSpan.textContent = "";
+  } else {
+    showPagesError();
+  }
+});
+
+addBookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (!titleInput.validity.valid) {
+    showTitleError();
+  }
+
+  if (!authorInput.validity.valid) {
+    showAuthorError();
+  }
+  if (!pagesInput.validity.valid) {
+    showPagesError();
+  }
+  if (
+    titleInput.validity.valid &&
+    authorInput.validity.valid &&
+    pagesInput.validity.valid
+  ) {
+    addBookToLibrary();
+    addBookForm.style.display = "none";
+    cancelButton.remove();
+    addBookForm.reset();
+
+    while (booklistElement.firstChild) {
+      booklistElement.removeChild(booklistElement.firstChild);
+    }
+    showBooks();
+    toggleBooksButton.innerText = "Hide Books";
+  }
 });

@@ -10,7 +10,7 @@
     <h1>My Library</h1>
     <button id="addNewBook">NEW BOOK</button>
     <div>
-      <form class="addBookForm" style="display: none">
+      <form class="addBookForm" style="display: none" novalidate>
         <h3>New Book Form</h3>
         <input
           type="text"
@@ -18,21 +18,31 @@
           id="title"
           placeholder="title"
           required
+          minlength="1"
+          maxlength="100"
         />
+        <span class="error" aria-live="polite"></span>
         <input
           type="text"
           name="author"
           id="author"
           placeholder="author"
           required
+          minlength="1"
+          maxlength="50"
+          pattern="^([A-Za-z']+)( [A-Za-z']+)?( [A-Za-z']+)?$"
         />
+        <span class="error" aria-live="polite"></span>
         <input
           type="number"
           name="pages"
           id="pages"
           placeholder="number of pages"
           required
+          min="1"
+          max="50000"
         />
+        <span class="error" aria-live="polite"></span>
         <label for="read">
           <input type="checkbox" name="read" id="read" /> Read the Book?
         </label>
